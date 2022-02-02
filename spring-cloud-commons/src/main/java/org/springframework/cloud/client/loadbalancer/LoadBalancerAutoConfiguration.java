@@ -78,6 +78,12 @@ public class LoadBalancerAutoConfiguration {
 	@ConditionalOnMissingClass("org.springframework.retry.support.RetryTemplate")
 	static class LoadBalancerInterceptorConfig {
 
+		/**
+		 * loadblance拦截器
+		 * @param loadBalancerClient
+		 * @param requestFactory
+		 * @return
+		 */
 		@Bean
 		public LoadBalancerInterceptor loadBalancerInterceptor(
 				LoadBalancerClient loadBalancerClient,
@@ -85,6 +91,11 @@ public class LoadBalancerAutoConfiguration {
 			return new LoadBalancerInterceptor(loadBalancerClient, requestFactory);
 		}
 
+		/**
+		 * 对所有的resttemplate添加loadblance拦截器
+		 * @param loadBalancerInterceptor
+		 * @return
+		 */
 		@Bean
 		@ConditionalOnMissingBean
 		public RestTemplateCustomizer restTemplateCustomizer(
